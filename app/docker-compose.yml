@@ -11,5 +11,11 @@ services:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    volumes:
+        - /mydata:/var/lib/mysql
     environment:
+      MYSQL_DATABASE: turnos
       MYSQL_ROOT_PASSWORD: examplePassword123
+volumes:
+  mydata:
+      
