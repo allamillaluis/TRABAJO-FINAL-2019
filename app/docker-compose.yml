@@ -12,7 +12,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-        - /mydata:/var/lib/mysql
+        - mydata:/var/lib/mysql
+    ports:
+      - '3306:3306'
     environment:
       MYSQL_DATABASE: turnos
       MYSQL_ROOT_PASSWORD: examplePassword123

@@ -12,6 +12,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager'=>[
+            'class'=>'Da\User\Component\AuthDbManagerComponent'
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'T8vQydp7L2hC55E3go4XLFNsaNRdQYbZ',

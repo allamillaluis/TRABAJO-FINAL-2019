@@ -2,103 +2,32 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use Da\User\Model\User as BaseUser;
+use yii\db\Query;
+
+class User extends BaseUser
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentity($id)
+    
+    public function getTrabajo(){
+        return (new Query())->from('m_tarea')->innerJoin('m_estado', 'm_tarea.estadoid=m_estado.id')->where(['usuario_asignadoid'=> $this->id])->groupBy(['m_estado.descripcion'])->select(['m_estado.descripcion as name', 'count(*) as value'])->all();
+    }
+    
+    // métodos de auditoría
+    public static function userFilterCallback($userName)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        $usr = User::findOne(['username'=>$userName]);
+        if(!$usr)
+            return null;
+        return $usr->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function userIdentifierCallback($userId)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        $usr = User::findOne($userId);
+        if(!$usr)
+            return null;
+        return $usr->username;
+        
     }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
-    }
+    
 }

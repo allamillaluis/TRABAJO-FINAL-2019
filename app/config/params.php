@@ -15,7 +15,7 @@ return [
     'runMode' => getenv('RUN_MODE') ? getenv('RUN_MODE') : 'dev',
     # Database
     'dbURL' => getenv('DB_URL') ? getenv('DB_URL') : 'mysql:host=db_mysql;dbname=turnos',
-    'dbUser' => getenv('DB_USER') ? getenv('DB_USER') : 'postgres',
+    'dbUser' => getenv('DB_USER') ? getenv('DB_USER') : 'root',
     'dbPass' => getenv('DB_PASSWORD') ? getenv('DB_PASSWORD') : 'examplePassword123',
     'emailFileTransport' => getenv('EMAIL_MODE') ? getenv('EMAIL_MODE')=='file' : false,
     'adminUser'=> getenv('ADMIN_USER')?[getenv('ADMIN_USER')]:['mariano']
