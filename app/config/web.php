@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'audit'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -19,6 +19,17 @@ $config = [
                 'User' => app\models\User::class,
             ],        
         ],
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'ignoreActions' => ['audit/*', 'debug/*'],
+            'userIdentifierCallback' => ['app\models\User', 'userIdentifierCallback'],
+            'userFilterCallback' => ['app\models\User', 'userFilterCallback'],            
+            'accessIps' => ['*'],
+            'logConfig'=>[
+                'levels'=>YII_DEBUG?['error','warning','info','trace','profile']:['error','warning'],
+            ],            'maxAge' => '14',
+            'maxAge' => '14',
+        ]
         
     ],  
     'components' => [
@@ -73,7 +84,12 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
+        'generators' => [
+            'fixture' => [
+                'class' => 'elisdn\gii\fixture\Generator',
+            ]
+         ]        
     ];
 }
 

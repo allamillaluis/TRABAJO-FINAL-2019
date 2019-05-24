@@ -41,6 +41,7 @@ $config = [
                 'migrationPath' => [
                     '@app/migrations',
                     '@yii/rbac/migrations', // Just in case you forgot to run it on console (see next note)
+                    '@bedezign/yii2/audit/migrations'
                 ],
                 'migrationNamespaces' => [
                     'Da\User\Migration',
