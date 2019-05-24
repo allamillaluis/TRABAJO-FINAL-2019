@@ -27,7 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
+ <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -38,26 +38,50 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            [
+                'label' => 'Home', 'url' => ['/site/index']
+            ],
+            (Yii::$app->hasModule('gii'))?
+            [
+                'label'=>'Gii',
+                'visible'=>Yii::$app->user->can('admin'),
+                'url'=>['/gii']
+            ]:'',            
+            [
+                'label'=>'Auditoría',
+                'url'=>'/audit',
+                'visible'=>Yii::$app->user->can('admin')
+            ],
+            [
+                'label'=>'Usuarios',
+                'url'=>'/user/admin/index',
+                'visible'=>Yii::$app->user->can('admin')
+            ],
+            [
+                'label'=>'Tablas de Sistema',
+                'url'=>'#',
+                'visible'=>Yii::$app->user->can('admin'),
+                'items'=>[
+                ]
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/user/security/login']]
             ) : (
                 '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+                . Html::beginForm(['/user/security/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Desconectarse  (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            
         ],
     ]);
     NavBar::end();
     ?>
-
+    
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
