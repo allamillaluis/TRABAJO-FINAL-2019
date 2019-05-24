@@ -21,7 +21,8 @@
         "2amigos/yii2-usuario": "~1.0",
         "bedezign/yii2-audit": "1.1.1",
         "msheng/yii2-jwt": "^1.0",
-        "schmunk42/yii2-giiant": "@dev"        
+        "schmunk42/yii2-giiant": "@dev",
+        "alexandernst/yii2-device-detect": "^0.0.12"        
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
