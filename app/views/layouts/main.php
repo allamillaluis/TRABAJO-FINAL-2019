@@ -93,8 +93,15 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">
+            <?php 
+            //Detectar el dispositivo del Usuario
+            if(Yii::$app->devicedetect->isMobile()){ ?>
+            Estas utilizando la <b>versi&oacute;n M&oacute;vil</b> (Ir a la versi&oacute;n de <?= Html::a(Html::img('@web/img/desktop.png', []).' Escritorio', '#') ?>)
+            <?php } else { ?>
+            Estas utilizando la <b>versi&oacute;n de Escritorio</b> (Ir a la versi&oacute;n <?= Html::a(Html::img('@web/img/mobile.png', []).' Móvil', '#') ?>)
+            <?php } ?>
+        </p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
