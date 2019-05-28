@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'audit'],
+    'bootstrap' => ['log', 'audit', 'devicedetect'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -33,6 +33,9 @@ $config = [
         
     ],  
     'components' => [
+        'devicedetect' => [
+		'class' => 'alexandernst\devicedetect\DeviceDetect'
+	],
         'authManager'=>[
             'class'=>'Da\User\Component\AuthDbManagerComponent'
         ],
