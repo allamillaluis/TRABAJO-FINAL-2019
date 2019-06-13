@@ -12,6 +12,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules'=>[
+        'mobile' => [
+          'class'=> \app\modules\mobile\Module::class  
+        ],
         'user' => [
             'class' => Da\User\Module::class,
             'administrators'=>$params['adminUser'],
