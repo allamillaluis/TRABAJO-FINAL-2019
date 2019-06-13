@@ -99,7 +99,7 @@ AppAsset::register($this);
             <?php 
             //Detectar el dispositivo del Usuario
             if(Yii::$app->devicedetect->isMobile()){ ?>
-            Estas utilizando un dispositivo móvil, ir a versión móvil: <b>versi&oacute;n M&oacute;vil</b> (Ir a la versi&oacute;n de <?= Html::a(Html::img('@web/img/mobile.png', ['/mobile/turno/nuevo']).' Escritorio', '#') ?>)
+            Estas utilizando un dispositivo móvil, ir a versión móvil: <b>versi&oacute;n M&oacute;vil</b> (Ir a la versi&oacute;n de <?= Html::a(Html::img('@web/img/mobile.png', []).' Escritorio', ['/mobile/turno/nuevo']) ?>)
             <?php } ?>
         </p>
         <p class="pull-right"><?= Yii::powered() ?></p>
